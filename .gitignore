@@ -13,3 +13,7 @@ wheels/
 *.csv
 
 *.ipynb
+*.db
+*.pdf
+*.jpg
+*.onnx

@@ -12,6 +12,14 @@ This project is a FastAPI-based application to scan a Telegram channel for book 
     - `/download/{book_id}`: Downloads a specific book by its ID.
 - **On-Demand Downloads**: Books are downloaded from Telegram only when requested, saving local storage space.
 
+## Recent Updates (February 21, 2026)
+
+- **Cloud Storage Integration**: Implemented `R2Storage` class to interface with Cloudflare R2 for storing and retrieving book files. This significantly reduces local storage dependency and improves scalability.
+- **OCR and TTS Integration**: Added OCR capabilities to extract text from book covers and integrated a Text-to-Speech (TTS) service to generate audio previews.
+- **Refactored Application Structure**: Reorganized the project into `app` and `app_` directories for better separation of concerns, with `app` containing the main FastAPI application and `app_` holding utilities and services.
+- **Enhanced Download Logic**: The `/download` endpoint now intelligently checks if a book exists in cloud storage before downloading it from Telegram, optimizing bandwidth and response times.
+- **Configuration Management**: Centralized configuration in `app/config.py` for easier management of environment variables and application settings.
+
 ## Getting Started
 
 ### Prerequisites
@@ -20,6 +28,7 @@ This project is a FastAPI-based application to scan a Telegram channel for book 
 - [uv](https://github.com/astral-sh/uv) for dependency management.
 - A Telegram API key and hash (see [Telegram's documentation](https://core.telegram.org/api/obtaining_api_id)).
 - **Ollama**: For OCR functionalities, ensure Ollama is installed and running, and the necessary OCR models are downloaded.
+- **Cloudflare R2 Account**: For cloud storage functionality.
 
 ### Installation
 
@@ -35,12 +44,15 @@ This project is a FastAPI-based application to scan a Telegram channel for book 
    ```
 
 3. **Set up your environment:**
-   Create a `.env` file in the root directory with your Telegram API credentials:
+   Create a `.env` file in the root directory with your Telegram and R2 credentials:
    ```
    API_ID=your_api_id
    API_HASH=your_api_hash
    BOT_TOKEN=your_bot_token 
    CHANNEL_NAME=your_channel_name
+   R2_ACCOUNT_ID=your_r2_account_id
+   R2_ACCESS_KEY_ID=your_r2_access_key_id
+   R2_SECRET_ACCESS_KEY=your_r2_secret_access_key
    ```
 
 4. **Run the application:**
@@ -48,11 +60,3 @@ This project is a FastAPI-based application to scan a Telegram channel for book 
    uv run uvicorn app.main:app --reload
    ```
    The API will be available at `http://127.0.0.1:8000`.
-
-## To-Do
-
-- [ ] **Dockerize the application**: Create a `Dockerfile` for easy containerization and deployment.
-- [ ] **Deploy the application**: Deploy to a cloud service (e.g., Heroku, AWS, Google Cloud).
-- [ ] **CI/CD Pipeline**: Implement a continuous integration and deployment pipeline (e.g., using GitHub Actions).
-- [ ] **Recommendation System**: Develop a simple ML-based recommendation system to suggest books based on user downloads or ratings.
-- [ ] **Web Interface**: Build a simple front-end website (e.g., using React or Vue.js) to interact with the API.

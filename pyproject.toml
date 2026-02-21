@@ -5,12 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "boto3>=1.42.54",
     "dotenv>=0.9.9",
     "fastapi>=0.129.0",
     "matplotlib>=3.10.8",
     "ollama>=0.6.1",
+    "onnxscript>=0.6.2",
     "pandas>=3.0.0",
     "python-telegram>=0.19.0",
+    "qwen-tts>=0.1.1",
+    "sqlalchemy>=2.0.46",
     "telethon>=1.42.0",
     "tqdm>=4.67.3",
     "uvicorn>=0.40.0",
